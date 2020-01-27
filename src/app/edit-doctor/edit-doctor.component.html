@@ -19,10 +19,10 @@
                             <div class="form-group" [ngClass]="{'col-md-6': !isEditPage,'col-md-12':isEditPage}">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" #userName
-                                    [class.is-invalid]="doctorForm.get('userDetails').get('username').invalid && doctorForm.get('userDetails').get('username').touched"
-                                    [class.is-valid]="doctorForm.get('userDetails').get('username').valid && doctorForm.get('userDetails').get('username').touched"
+                                    [class.is-invalid]="username.invalid && username.touched"
+                                    [class.is-valid]="username.valid && username.touched"
                                     id="username" formControlName="username" placeholder="Username" name="username">
-                                    {{userName | json }}
+                                    
                                 <small *ngIf="userName.errors ?.required" class="text-danger">Username is
                                     Required</small>
                             </div>

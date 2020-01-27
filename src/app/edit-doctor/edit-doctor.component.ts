@@ -22,6 +22,10 @@ export class EditDoctorComponent implements OnInit {
 
   doctor = new Doctor(null,'',null,null,null,new UserDetails(null,'','',4,'','','','',null,null,null,''));
   error = new CustomError('','','');
+
+  get username(){
+    return this.doctorForm.get('userDetails').get('username');
+  }
   addUser = () =>{
     if(!this.isEditPage){
       this.crud.addDoctor(this.doctorForm.value).subscribe((data)=>{
