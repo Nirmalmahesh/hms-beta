@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-center">
+           <h3 class="mt-3">
+            {{title}}
+           </h3>
+        </div>
+    </div>
+    <div class="col-md-3 mb-4 mr-4 mt-4" *ngFor="let item of data">
+      <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="https://source.unsplash.com/user/erondu" style="height: 20vh !important;" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{item.userDetails.firstName}}</h4>            
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">City : {{item.userDetails.city}}</li>
+            <li class="list-group-item">State : {{item.userDetails.state}}</li>
+            
+          </ul>
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <a href="#" class="card-link btn btn-danger">Delete</a>
+              <a href="#" class="card-link btn btn-info">Details</a>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>

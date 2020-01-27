@@ -1,0 +1,29 @@
+<div class="container ">
+    <div class="row">
+        <div class=" col-md-6 offset-md-3">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <form #loginForm="ngForm" (ngSubmit)="authenticate()" class="was-validated">
+                        <div class="form-group">
+                            <label for="uname">Username:</label>
+                            <input type="text" class="form-control" [(ngModel)]="user.username" id="uname"
+                                placeholder="Enter username" name="uname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" [(ngModel)]="user.password" id="pwd"
+                                placeholder="Enter password" name="pswd" required>
+
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
