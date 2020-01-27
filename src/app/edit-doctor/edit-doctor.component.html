@@ -9,63 +9,77 @@
                     <h3>{{title | uppercase}}</h3>
                 </div>
             </div>
-            <div class="col-md-12">                
-                <form  (ngSubmit)="addUser()"> 
-                                   
-                    <div class="form-row">
-                        <div class="form-group" [ngClass]="{'col-md-6': !isEditPage,'col-md-12':isEditPage}">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Username"
-                                name="username" [(ngModel)]="doctor.userDetails.username">
-                        </div>
-                        <div class="form-group col-md-6" *ngIf="!isEditPage">
-                            <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
-                                name="password" [(ngModel)]="doctor.userDetails.password">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="firstname">Firstname</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="FirstName"
-                                name="firstName" [(ngModel)]="doctor.userDetails.firstName">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputPassword4">Lastname</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="LastName"
-                                name="lastName" [(ngModel)]="doctor.userDetails.lastName">
-                        </div>
-                    </div>                    
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputCity">City</label>
-                            <input type="text" class="form-control" placeholder="Enter City" name="city" id="inputCity" [(ngModel)]="doctor.userDetails.city">
+            <div class="col-md-12">
+                <form (ngSubmit)="addUser()" [formGroup]="doctorForm">
+                    {{doctorForm.get("userDetails").get('username').touched }}
+                    {{doctorForm.value | json}}
+                    <div formGroupName="userDetails">
+                        <div class="form-row">
+                            <div class="form-group" [ngClass]="{'col-md-6': !isEditPage,'col-md-12':isEditPage}">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" #userName
+                                    [class.is-invalid]="doctorForm.get('userDetails').get('username').invalid && doctorForm.get('userDetails').get('username').touched"
+                                    [class.is-valid]="doctorForm.get('userDetails').get('username').valid && doctorForm.get('userDetails').get('username').touched"
+                                    id="username" formControlName="username" placeholder="Username" name="username">
+                                    {{userName | json }}
+                                <small *ngIf="userName.errors ?.required" class="text-danger">Username is
+                                    Required</small>
+                            </div>
+                            <div class="form-group col-md-6" *ngIf="!isEditPage">
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" class="form-control" id="inputPassword4"
+                                    formControlName="password" placeholder="Password" name="password">
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputState">State</label>
-                            <select id="inputState" class="form-control" [(ngModel)]="doctor.userDetails.state" name="state">
-                                <option selected disabled>Choose...</option>
-                                <option value="TamilNadu">TamilNadu</option>
-                                <option value="Kerala">Kerala</option>
-                                <option value="Karnadaka">Karnadaka</option>
-                                <option value="Pandichery">Pandichery</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstname">Firstname</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="FirstName"
+                                    name="firstName" formControlName="firstNmae">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Lastname</label>
+                                <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                                    placeholder="LastName" name="lastName">
+                            </div>
                         </div>
-                        
-                      
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">City</label>
+                                <input type="text" class="form-control" placeholder="Enter City" name="city"
+                                    id="inputCity" formControlName="city">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState">State</label>
+                                <select id="inputState" class="form-control" name="state" formControlName="state">
+                                    <option selected disabled>Choose...</option>
+                                    <option value="TamilNadu">TamilNadu</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Karnadaka">Karnadaka</option>
+                                    <option value="Pandichery">Pandichery</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="phoneNumer">PhoneNumber</label>
+                                <input type="text" class="form-control" name="phoneNumber"
+                                    placeholder="Enter Phonenumber" formControlName="phoneNumber">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="specilization">specilization</label>
-                            <input type="text" class="form-control" name="doctorSpecilization" placeholder="Enter Specilization" [(ngModel)]="doctor.doctorSpecialization">
+                            <input type="text" class="form-control" name="doctorSpecilization"
+                                placeholder="Enter Specilization" formControlName="doctorSpecialization">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="phoneNumer">PhoneNumber</label>
-                            <input type="text" class="form-control" name="phoneNumber" placeholder="Enter Phonenumber" [(ngModel)]="doctor.userDetails.phoneNumber">
-                        </div>
+
                     </div>
-                   
+
                     <div class="d-flex justify-content-center" *ngIf="!isEditPage">
                         <button type="submit" class="btn btn-primary">ADD DOCTOR</button>
                     </div>
