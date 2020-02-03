@@ -13,13 +13,13 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'dashboard', component: DashboardComponent, children: [
-      { path: 'doctor', component: DoctorComponent,canActivate : [AuthGuard] },
-      { path: 'patient', component: PatientComponent,canActivate : [AuthGuard] }
+      { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
+      { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] }
     ],
-    
+
   },
-  {path : 'dashboard/doctors/add',component:EditDoctorComponent},
-  {path:'dashboard/doctors/:id',component:EditDoctorComponent}
+  { path: 'dashboard/doctors/add', component: EditDoctorComponent },
+  { path: 'dashboard/doctors/:id', component: EditDoctorComponent }
 ];
 
 @NgModule({

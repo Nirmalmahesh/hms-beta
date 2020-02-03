@@ -1,6 +1,6 @@
 export class CustomError {
 
-    constructor(public type: String,
-        public message: String,
-        public shortMessage: String) { }
+    constructor(public type: string,
+        public message: string,
+        public shortMessage: string) { }
 }

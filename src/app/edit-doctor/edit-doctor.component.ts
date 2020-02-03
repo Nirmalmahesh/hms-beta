@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Doctor } from '../model/doctor';
-import { UserDetails } from '../model/userDetails';
 import { CrudService } from '../crud.service';
 import { CustomError } from '../model/customError';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CustomValidators } from '../custom-validators';
+import { AppConstant } from '../constants/ApplicationConstant';
 
 @Component({
   selector: 'hms-edit-doctor',
@@ -15,85 +15,106 @@ export class EditDoctorComponent implements OnInit {
 
   isLoaded = true;
   showError = false;
-  
-  title = "Add Doctor";
+  isEditPage = false;
 
-  doctorForm : FormGroup;
+  title = 'Add Doctor';
 
-  doctor = new Doctor(null,'',null,null,null,new UserDetails(null,'','',4,'','','','',null,null,null,''));
-  error = new CustomError('','','');
+  doctorForm: FormGroup;
 
-  get username(){
+
+  error = new CustomError('', '', '');
+
+  get username() {
     return this.doctorForm.get('userDetails').get('username');
   }
-  addUser = () =>{
-    if(!this.isEditPage){
-      this.crud.addDoctor(this.doctorForm.value).subscribe((data)=>{
-        this.error.type = "success";
-        this.error.shortMessage = "Added";
+  get password() {
+    return this.doctorForm.get('userDetails').get('password');
+  }
+  get firstName() {
+    return this.doctorForm.get('userDetails').get('firstName');
+  }
+  get lastName() {
+    return this.doctorForm.get('userDetails').get('lastName');
+  }
+  get city() {
+    return this.doctorForm.get('userDetails').get('city');
+  }
+  get state() {
+    return this.doctorForm.get('userDetails').get('state');
+  }
+  get phoneNumber() {
+    return this.doctorForm.get('userDetails').get('phoneNumber');
+  }
+  addUser = () => {
+    if (!this.isEditPage) {
+      this.crud.addDoctor(this.doctorForm.value).subscribe((data) => {
+        this.error.type = 'success';
+        this.error.shortMessage = 'Added';
         this.error.message = `User Added Successfully!`;
         this.showError = true;
-        console.log()
-      },(err)=>{
-        this.error.type = "danger";
-        this.error.shortMessage = "Error";
+        console.log();
+      }, (err) => {
+        this.error.type = 'danger';
+        this.error.shortMessage = 'Error';
         this.error.message = `Something went Wrong`;
         this.showError = true;
         console.log(err);
-      })
-    }else{
-      this.crud.updateDoctor(this.doctor).subscribe((data)=>{
-        this.error.type = "success";
-        this.error.shortMessage = "Updated";
+      });
+    } else {
+      this.crud.updateDoctor(this.doctorForm.value).subscribe((data) => {
+        this.error.type = 'success';
+        this.error.shortMessage = 'Updated';
         this.error.message = `User Updated Successfully!`;
-        this.showError = true;  
-      })
+        this.showError = true;
+      });
     }
-    
+
   }
-  updateDoctor(){
-    console.log(this.doctor);
-  }
-  loadDoctor = (doctorId) =>{
-   this.crud.readDoctor(doctorId).subscribe((data)=>{
-      this.doctor = data;
+
+  loadDoctor = (doctorId) => {
+    this.crud.readDoctor(doctorId).subscribe((data) => {
+
       this.doctorForm.patchValue(data);
-   })
+    });
   }
-  isEditPage = false;
-  constructor(private crud : CrudService,private route:ActivatedRoute,private fb : FormBuilder) { }
+
+  constructor(private crud: CrudService, private route: ActivatedRoute, private fb: FormBuilder) { }
 
   ngOnInit() {
 
 
     this.doctorForm = this.fb.group({
-    
-      doctorSpecialization:['',Validators.required],
-      userDetails:this.fb.group({
-        username:['',Validators.required],
-        password:['',Validators.required],
-        roleId:[4,Validators.required],
-        firstNmae : ['',Validators.required],
-        lastName : ['',Validators.required],
-        city : ['',Validators.required],
-        state : ['',Validators.required],
-        phoneNumber : ['',Validators.required]
+
+      doctorSpecialization: ['', Validators.required],
+      userDetails: this.fb.group({
+        username: ['', Validators.required],
+        password: ['', Validators.compose([
+          Validators.required,
+          CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+          CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+          CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+          Validators.minLength(8)
+        ])],
+        roleId: [4, Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+        phoneNumber: ['', Validators.required]
       })
     });
 
     console.log(this.doctorForm);
-    
 
-    this.route.params.subscribe((params)=>{
-      console.log(params['id']);
-      let doctorId = params["id"];
-      if(doctorId != null){
+
+    this.route.params.subscribe((params) => {
+      console.log(params[AppConstant.ID]);
+      const doctorId = params[AppConstant.ID];
+      if (doctorId != null) {
         this.isEditPage = true;
 
       }
-      this.loadDoctor(doctorId)
+      this.loadDoctor(doctorId);
     });
-    
   }
-
 }

@@ -9,7 +9,7 @@ import { CustomError } from '../model/customError';
 export class AlertComponent implements OnInit {
 
   constructor() { }
-  @Input("error") error:CustomError;
+  @Input('error') error: CustomError;
   ngOnInit() {
   }
 

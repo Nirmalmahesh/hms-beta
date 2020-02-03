@@ -1,3 +1,3 @@
 <div class="container" *ngIf="isPageLoaded">
-    <hms-card-display-details [img] = "src" [data]="patients" [title]="title"></hms-card-display-details>
+    <hms-card-display-details [img] = "src" [data]="patients" [title]="title" [isLoading]="isLoading" (delete)="deletePatient($event)" ></hms-card-display-details>
 </div>

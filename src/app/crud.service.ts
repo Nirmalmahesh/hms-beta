@@ -8,33 +8,37 @@ import { Observable } from 'rxjs';
 })
 export class CrudService {
 
-  private url = "";
-  private title = "Patients Profiles";
+  private url = 'http://hms-demo-app.us-east-1.elasticbeanstalk.com:8080/';
+  private title = 'Patients Profiles';
 
-  constructor(private http : HttpClient) { }
-  public  getAllDoctors = () =>{
+  constructor(private http: HttpClient) { }
+  public getAllDoctors = () => {
     return this.http.get(`${this.url}/api/doctors/`);
   }
-  public getAllPatients = () =>{
+  public getAllPatients = () => {
     return this.http.get(`${this.url}/api/patients/`);
   }
-  public deleteDelete = (doctorId) =>{
+  public deleteDelete = (doctorId) => {
     return this.http.delete(`${this.url}/api/doctors/${doctorId}`);
   }
 
-  public addDoctor = (doctor) =>{
+  public addDoctor = (doctor) => {
     console.log(doctor);
-    return this.http.post(`${this.url}/api/doctors/`,doctor);
+    return this.http.post(`${this.url}/api/doctors/`, doctor);
   }
 
-  public readDoctor = (doctorId):Observable<Doctor> =>{
+  public readDoctor = (doctorId): Observable<Doctor> => {
     return this.http.get<Doctor>(`${this.url}/api/doctors/${doctorId}`);
   }
 
-  public updateDoctor = (doctor):Observable<Doctor> =>{
-    return this.http.put<Doctor>(`${this.url}/api/doctors/`,doctor);
+  public updateDoctor = (doctor): Observable<Doctor> => {
+    return this.http.put<Doctor>(`${this.url}/api/doctors/`, doctor);
   }
- 
+
+  public deletePatient = (doctorId) => {
+    return this.http.delete(`${this.url}/api/patients/${doctorId}`);
+  }
+
 
 
 }

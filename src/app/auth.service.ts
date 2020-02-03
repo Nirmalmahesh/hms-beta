@@ -8,30 +8,30 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private url = "http://localhost:8085/";
+  private url = 'http://hms-demo-app.us-east-1.elasticbeanstalk.com:8080/';
 
-  public navigate = () =>{
-    if(this.isTokenAvailable()){
-      this.route.navigate(["dashboard"]);      
-    }else{
-      this.route.navigate(["login"]);
+  public navigate = () => {
+    if (this.isTokenAvailable()) {
+      this.route.navigate(['dashboard']);
+    } else {
+      this.route.navigate(['login']);
     }
   }
 
-  isTokenAvailable = () =>{
-   return (!!localStorage.getItem("token"));
+  isTokenAvailable = () => {
+    return (!!localStorage.getItem('token'));
   }
 
-  getToken = () =>{
-    if(this.isTokenAvailable){
-      return localStorage.getItem("token");
-    }else{
+  getToken = () => {
+    if (this.isTokenAvailable) {
+      return localStorage.getItem('token');
+    } else {
       return null;
     }
   }
-  public authenticate = (user) =>{
-      
-    return this._http.post(`${this.url}authenticate`,user);
+  public authenticate = (user) => {
+
+    return this.http.post(`${this.url}authenticate`, user);
   }
-  constructor(private _http : HttpClient,private route : Router) { }
+  constructor(private http: HttpClient, private route: Router) { }
 }

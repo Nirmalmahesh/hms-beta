@@ -2,9 +2,9 @@ import { UserDetails } from './userDetails';
 
 export class Doctor {
 
-    constructor(public doctorId: Number,
-        public doctorSpecialization: String,
-        public isActive: Number,
+    constructor(public doctorId: number,
+        public doctorSpecialization: string,
+        public isActive: number,
         public createdTime: Date,
         public updatedTime: Date,
         public userDetails: UserDetails) { }
