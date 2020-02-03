@@ -8,16 +8,16 @@ import { Observable } from 'rxjs';
 })
 export class CrudService {
 
-  private url = 'http://hms-demo-app.us-east-1.elasticbeanstalk.com:8080/';
+  private url = 'http://hms-demo-app.us-east-1.elasticbeanstalk.com:8080';
   private title = 'Patients Profiles';
 
   constructor(private http: HttpClient) { }
-  public getAllDoctors = () => {
-    return this.http.get(`${this.url}/api/doctors/`);
-  }
-  public getAllPatients = () => {
-    return this.http.get(`${this.url}/api/patients/`);
-  }
+  // public getAllDoctors = () => {
+  //   return this.http.get(`${this.url}/api/doctors/`);
+  // }
+  // public getAllPatients = () => {
+  //   return this.http.get(`${this.url}/api/patients/`);
+  // }
   public deleteDelete = (doctorId) => {
     return this.http.delete(`${this.url}/api/doctors/${doctorId}`);
   }

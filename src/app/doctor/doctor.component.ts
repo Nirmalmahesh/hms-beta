@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../crud.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'hms-doctor',
@@ -24,13 +25,13 @@ export class DoctorComponent implements OnInit {
     });
   }
   getAllDoctors = () => {
-    this.crudService.getAllDoctors().subscribe((data) => {
+    this.authService.getAllDoctors().subscribe((data) => {
       this.doctors = data;
       console.log(data);
       this.isPageLoaded = true;
     });
   }
-  constructor(public crudService: CrudService, private router: Router) { }
+  constructor(public crudService: CrudService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.getAllDoctors();

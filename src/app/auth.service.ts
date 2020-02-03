@@ -33,5 +33,12 @@ export class AuthService {
 
     return this.http.post(`${this.url}authenticate`, user);
   }
+
+  public getAllDoctors = () => {
+    return this.http.get(`${this.url}api/doctors/`);
+  }
+  public getAllPatients = () => {
+    return this.http.get(`${this.url}api/patients/`);
+  }
   constructor(private http: HttpClient, private route: Router) { }
 }

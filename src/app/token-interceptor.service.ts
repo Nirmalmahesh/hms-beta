@@ -11,7 +11,8 @@ export class TokenInterceptorService implements HttpInterceptor {
     if (this.auth.isTokenAvailable()) {
       tokenizedRequest = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.auth.getToken()}`
+          Authorization: `Bearer ${this.auth.getToken()}`,
+          'Access-Control-Allow-Origin': '*'
         }
       });
     } else {
@@ -20,6 +21,6 @@ export class TokenInterceptorService implements HttpInterceptor {
 
     return next.handle(tokenizedRequest);
   }
- 
+
   constructor(private auth: AuthService) { }
 }

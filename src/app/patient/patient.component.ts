@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../crud.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'hms-patient',
@@ -8,12 +9,12 @@ import { CrudService } from '../crud.service';
 })
 export class PatientComponent implements OnInit {
 
-  constructor(private crudService: CrudService) { }
+  constructor(private crudService: CrudService, private authService: AuthService) { }
   public patients: any = [];
   public isPageLoaded = false;
   public title = 'Patients Profile';
   isLoading = false;
-  public src = "";
+  public src = '';
   deletePatient($event) {
     this.isLoading = true;
     console.log(this.isLoading);
@@ -25,7 +26,7 @@ export class PatientComponent implements OnInit {
     });
   }
   getAllPatient = () => {
-    this.crudService.getAllPatients().subscribe((data) => {
+    this.authService.getAllPatients().subscribe((data) => {
       this.patients = data;
       this.isPageLoaded = true;
     });
